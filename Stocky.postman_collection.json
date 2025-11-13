@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "0fb9e600-907e-4839-91e5-e80fc81dfb09",
+		"name": "Stocky",
+		"description": "Stocky is a system where users receive free shares of Indian stocks as part of onboarding and referral rewards.  \nEvery time a reward is given:\n\n- A reward record is created\n    \n- The user’s holdings are updated\n    \n- The company’s ledger is updated (shares received, cash spent, brokerage fees)\n    \n- Stock prices are fetched to show INR value to the user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23339324"
+	},
+	"item": [
+		{
+			"name": "reward",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 2,\r\n    \"stockSymbol\": \"APPLE\",\r\n    \"shares\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reward",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reward"
+					]
+				},
+				"description": "This route gives a user a reward of X shares for a specific stock\n\nIt performs multiple actions:\n\n(1)Stores the reward event\n\n(2)Updates the user's holdings table\n\n(3)Creates 3 ledger entries (company gets shares, cash outflow, brokerage fees)"
+			},
+			"response": []
+		},
+		{
+			"name": "todays rewards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/today-stocks/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"today-stocks",
+						"2"
+					]
+				},
+				"description": "Returns all rewards that the user received today."
+			},
+			"response": []
+		},
+		{
+			"name": "stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/stats/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"stats",
+						"2"
+					]
+				},
+				"description": "This route returns\n\n1. Total shares rewarded today (grouped by stock)\n    \n2. Current INR value of all holdings"
+			},
+			"response": []
+		},
+		{
+			"name": "historical data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/historical-inr/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historical-inr",
+						"2"
+					]
+				},
+				"description": "Returns the INR value of rewards for previous days (excluding today)."
+			},
+			"response": []
+		}
+	]
+}

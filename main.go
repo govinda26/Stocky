@@ -1,6 +1,7 @@
 package main
 
 import (
+	"stocky/controllers"
 	"stocky/initializers"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +10,7 @@ import (
 func init() {
 	initializers.LoadEnvVariables()
 	initializers.ConnectToDB()
+	initializers.InitLogger()
 }
 
 func main() {
@@ -21,6 +23,11 @@ func main() {
 			"Stocks": "Working",
 		})
 	})
+
+	r.POST("/reward", controllers.RewardCreate)
+	r.GET("/today-stocks/:userId", controllers.TodayStocks)
+	r.GET("/stats/:userId", controllers.Stats)
+	r.GET("/historical-inr/:userId", controllers.HistoryRewards)
 
 	r.Run()
 }

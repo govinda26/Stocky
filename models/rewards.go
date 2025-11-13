@@ -9,7 +9,7 @@ import (
 // RewardEvent is the table name
 type RewardEvent struct {
 	gorm.Model
-	UserId      uint //userId
+	UserID      uint //userId
 	StockSymbol string
 	Shares      float64
 	ReceivedAt  time.Time
